@@ -8,7 +8,7 @@
     <meta name="author" content="ThemeBucket" />
     <link rel="shortcut icon" href="images/favicon.png" />
 
-    <title>Horizontal menu page</title>
+    <title>Book app</title>
 
     <!--Core CSS -->
     <link href="bs3/css/bootstrap.min.css" rel="stylesheet" />
@@ -168,20 +168,20 @@
               <div class="col-sm-12">
                 <div class="col-sm-2">Mã TL:</div>
                 <div class="col-sm-2">
-                  <input class="form-control" type="text" />
+                  <input class="form-control txt-matl" type="text" />
                 </div>
                 <div class="col-sm-2">Tên TL:</div>
                 <div class="col-sm-4">
-                  <input class="form-control" type="text" />
+                  <input class="form-control txt-tentl" type="text" />
                 </div>
               </div>
 
               <div class="col-sm-12 mt-2 mb-2" align="center">
-                <button type="button" class="btn btn-primary">Thêm</button>
+                <button type="button" class="btn btn-primary btn-them-theloai">Thêm</button>
                 &nbsp;
-                <button type="button" class="btn btn-primary">Lưu</button>
+                <button type="button" class="btn btn-primary btn-luu-theloai">Lưu</button>
                 &nbsp;
-                <button type="button" class="btn btn-primary">Làm lại</button>
+                <button type="button" class="btn btn-primary btn-lamlai-theloai">Làm lại</button>
               </div>
             </div>
 
@@ -230,22 +230,22 @@
               <div class="col-sm-12">
                 <div class="col-sm-2">Mã sách:</div>
                 <div class="col-sm-3">
-                  <input class="form-control" type="text" />
+                  <input class="form-control txt-idBook" type="text" />
                 </div>
                 <div class="col-sm-2">Tên sách:</div>
                 <div class="col-sm-4">
-                  <input class="form-control" type="text" />
+                  <input class="form-control txt-nameBook" type="text" />
                 </div>
               </div>
 
               <div class="col-sm-12 mt-2">
                 <div class="col-sm-2">Số trang:</div>
                 <div class="col-sm-3">
-                  <input class="form-control" type="text" />
+                  <input class="form-control txt-numberBook" type="text" />
                 </div>
                 <div class="col-sm-2">Năm xuất bản:</div>
                 <div class="col-sm-4">
-                  <input class="form-control" type="text" />
+                  <input class="form-control txt-yearBook" type="text" />
                 </div>
               </div>
 
@@ -284,11 +284,11 @@
               </div>
 
               <div class="col-sm-12 mt-2 mb-2" align="center">
-                <button type="button" class="btn btn-primary">Thêm</button>
+                <button type="button" class="btn btn-primary btn-addBook">Thêm</button>
                 &nbsp;
-                <button type="button" class="btn btn-primary">Lưu</button>
+                <button type="button" class="btn btn-primary btn-saveBook">Lưu</button>
                 &nbsp;
-                <button type="button" class="btn btn-primary">Làm lại</button>
+                <button type="button" class="btn btn-primary btn-resetBook">Làm lại</button>
               </div>
             </div>
 
@@ -349,22 +349,22 @@
               <div class="col-sm-12">
                 <div class="col-sm-2">Mã tác giả:</div>
                 <div class="col-sm-3">
-                  <input class="form-control" type="text" />
+                  <input class="form-control txt-idAuthor" type="text" />
                 </div>
                 <div class="col-sm-2">Tên tác giả:</div>
                 <div class="col-sm-4">
-                  <input class="form-control" type="text" />
+                  <input class="form-control txt-nameAuthor" type="text" />
                 </div>
               </div>
 
               <div class="col-sm-12 mt-2">
                 <div class="col-sm-2">Ngày sinh:</div>
                 <div class="col-sm-3">
-                  <input type="text" class="form-control" />
+                  <input type="text" class="form-control txt-dateOfBirth-author" />
                 </div>
                 <div class="col-sm-2">Số điện thoại:</div>
                 <div class="col-sm-4">
-                  <input class="form-control" type="text" />
+                  <input class="form-control txt-phoneAuthor" type="text" />
                 </div>
               </div>
 
@@ -372,16 +372,16 @@
                 <div class="col-sm-2">Địa chỉ:</div>
 
                 <div class="col-sm-4">
-                  <input class="form-control" type="text" />
+                  <input class="form-control txt-addressAuthor" type="text" />
                 </div>
               </div>
 
               <div class="col-sm-12 mt-2 mb-2" align="center">
-                <button type="button" class="btn btn-primary">Thêm</button>
+                <button type="button" class="btn btn-primary btn-addAuthor">Thêm</button>
                 &nbsp;
-                <button type="button" class="btn btn-primary">Lưu</button>
+                <button type="button" class="btn btn-primary btn-saveAuthor">Lưu</button>
                 &nbsp;
-                <button type="button" class="btn btn-primary">Làm lại</button>
+                <button type="button" class="btn btn-primary btn-resetAuthor">Làm lại</button>
               </div>
             </div>
 
@@ -439,31 +439,38 @@
               <div class="col-sm-12">
                 <div class="col-sm-2">Mã NXB:</div>
                 <div class="col-sm-3">
-                  <input class="form-control" type="text" />
+                  <input class="form-control txt-manxb" type="text" />
                 </div>
                 <div class="col-sm-2">Tên NXB:</div>
                 <div class="col-sm-4">
-                  <input class="form-control" type="text" />
+                  <input class="form-control txt-tennxb" type="text" />
                 </div>
               </div>
 
               <div class="col-sm-12 mt-2">
                 <div class="col-sm-2">SDT:</div>
                 <div class="col-sm-3">
-                  <input class="form-control" type="text" />
+                  <input class="form-control txt-phone" type="text" />
                 </div>
                 <div class="col-sm-2">Địa chỉ:</div>
                 <div class="col-sm-4">
-                  <input class="form-control" type="text" />
+                  <input class="form-control txt-address" type="text" />
+                </div>
+              </div>
+
+              <div class="col-sm-12 mt-2">
+                <div class="col-sm-2">Email:</div>
+                <div class="col-sm-3">
+                  <input class="form-control txt-email" type="text" />
                 </div>
               </div>
 
               <div class="col-sm-12 mt-2 mb-2" align="center">
-                <button type="button" class="btn btn-primary">Thêm</button>
+                <button type="button" class="btn btn-primary btn-themnxb">Thêm</button>
                 &nbsp;
-                <button type="button" class="btn btn-primary">Lưu</button>
+                <button type="button" class="btn btn-primary btn-luunxb">Lưu</button>
                 &nbsp;
-                <button type="button" class="btn btn-primary">Làm lại</button>
+                <button type="button" class="btn btn-primary btn-lamlainxb">Làm lại</button>
               </div>
             </div>
 
@@ -686,5 +693,9 @@
 
     <!-- Js user custom -->
     <script src="./jsUser/index.js"></script>
+    <script src="./jsUser/form-theloai.js"></script>
+    <script src="./jsUser/form-nxb.js"></script>
+    <script src="./jsUser/form-book.js"></script>
+    <script src="./jsUser/form-author.js"></script>
   </body>
 </html>
