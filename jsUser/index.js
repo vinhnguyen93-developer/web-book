@@ -141,9 +141,21 @@ function checkDate(strDate) {
 }
 
 //hàm gửi dữ liệu tới database
-function queryData(url, dataSend, callback) {
+function queryDataPost(url, dataSend, callback) {
   $.ajax({
     type: "POST",
+    url: url,
+    data: dataSend,
+    async: true,
+    dataType: "json",
+    success: callback
+  });
+}
+
+//hàm lấy dữ liệu từ server
+function queryDataGet(url, dataSend, callback) {
+  $.ajax({
+    type: "GET",
     url: url,
     data: dataSend,
     async: true,
