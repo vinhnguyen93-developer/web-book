@@ -76,7 +76,7 @@ switch ($event) {
 		
         echo json_encode($jsonData);
 		mysqli_close($conn);
-		 break;
+		break;
     default:
         # code...
         break;

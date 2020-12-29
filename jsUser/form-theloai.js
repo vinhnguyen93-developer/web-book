@@ -89,10 +89,10 @@ function buildHTMLTheLoaiData(res) {
     resalltheloai = data;
 
     var stt = 1;
-    var currentpage = parseInt(res.page);
+    var currentPage = parseInt(res.page);
     var html = '';
    
-    stt = printSTT(recordtheloai, currentpage);
+    stt = printSTT(recordtheloai, currentPage);
     
     for(item in data) {
         var list = data[item];
@@ -103,7 +103,6 @@ function buildHTMLTheLoaiData(res) {
             '<td>' + stt + '</td>' +
 			'<td>' + list.MaTL + '</td>' +
 			'<td>' + list.TenTL + '</td>' +
-			
 			'<td class="click_sua_the_loai"><i class="fa fa-eye"></i></td>'+
             '</tr>';
 
@@ -112,15 +111,15 @@ function buildHTMLTheLoaiData(res) {
         $(".listdstheloai").html(html)
     }
 
-    buildSlidePage($(".pagenumbertheloai"), 5, res.page, res.totalpage);
+    buildSlidePage($(".page-number"), 5, res.page, res.totalpage);
    }
 }
 
 var theloai_current = 0;
 
-$(".pagenumbertheloai").on('click', 'button', () => {
+$(".page-number").on('click', 'button', function() {
     
-    theloai_current = $(".pagenumbertheloai").val();
-    builddstheloai($(".pagenumbertheloai").val(), recordtheloai);
+    theloai_current = $(this).val();
+    builddstheloai(theloai_current, recordtheloai);
     
 });
