@@ -1,4 +1,4 @@
-$(".btn-them-theloai").click(function() {
+$(".btn-them-theloai").click(() => {
     //Lấy dữ liệu từ form
     var maTl = $(".txt-matl").val();
     var tenTl = $(".txt-tentl").val();
@@ -14,7 +14,7 @@ $(".btn-them-theloai").click(function() {
             tentl: tenTl
         }
 
-        queryDataPost("php/theloai.php", data, function(res) {
+        queryDataPost("php/theloai.php", data, (res) => {
             if(res.insert == 1) {
                 alertSuccess("Thêm thành công.");
             } else {
@@ -25,11 +25,11 @@ $(".btn-them-theloai").click(function() {
 });
 
 //bắt sự kiện reset lại form thể loại
-$(".btn-lamlai-theloai").click(function() {
+$(".btn-lamlai-theloai").click(() => {
     resetFormTheLoai();
 });
 
-$(".btn-delete-theloai").click(function() {
+$(".btn-delete-theloai").click(() => {
     var maTl = $(".txt-matl").val();
 
     var data = {
@@ -38,15 +38,14 @@ $(".btn-delete-theloai").click(function() {
     }
 
     bootbox.confirm(
-        "Bạn có chắc muốn xoá mã thể loại " + maTl + " hàng này không?",
-        function (result) {
+        "Bạn có chắc muốn xoá mã thể loại " + maTl + " hàng này không?", (result) => {
           if (result == true) {
             var data = {
                 event: "delete",
                 matl: maTl
             }
 
-            queryDataPost("php/theloai.php", data, function(res) {
+            queryDataPost("php/theloai.php", data, (res) => {
                 if(res.delete) {
                     alertSuccess("deleted...");
                 } else {
@@ -64,19 +63,64 @@ function resetFormTheLoai() {
     $(".txt-tentl").val("");
 }
 
-//hàm gửi dữ liệu lên server
-function sendData() {
+//hàm hiển thị dữ liệu lên table
+function builddstheloai(page, record) {
+   
     var dataSend = {
-        event: "send data"
+		event: "getDSTheLoai",
+		page: page,
+        record: record
     }
-
-    queryDataGet("php/api-process.php", dataSend, function(res) {
-        alertInfo(res);
-    });
-
-    queryDataPost("php/api-process-post.php", dataSend, function(res) {
-        alertInfo("Post: " + res);
+    
+    $(".listdstheloai").html("<img src='images/input-spinner.gif' width='5px' height='5px'/>");
+  
+    queryDataPost("php/theloai.php", dataSend, (res) => {
+        $(".listdstheloai").html("");
+        buildHTMLTheLoaiData(res);
     });
 }
 
-//sendData();
+function buildHTMLTheLoaiData(res) {
+   if(res.total == 0) {
+    $(".listdstheloai").html("Chưa có nội dung");	
+   }else {  
+    var data = res.items;
+
+    resalltheloai = data;
+
+    var stt = 1;
+    var currentpage = parseInt(res.page);
+    var html = '';
+   
+    stt = printSTT(recordtheloai, currentpage);
+    
+    for(item in data) {
+        var list = data[item];
+      
+        html = html +
+            '<tr data-matl="' + list.MaTL + '" data-name="' + list.MaTL + '" data-vt="' + list.MaTL + '">' +
+			
+            '<td>' + stt + '</td>' +
+			'<td>' + list.MaTL + '</td>' +
+			'<td>' + list.TenTL + '</td>' +
+			
+			'<td class="click_sua_the_loai"><i class="fa fa-eye"></i></td>'+
+            '</tr>';
+
+        stt++;
+        
+        $(".listdstheloai").html(html)
+    }
+
+    buildSlidePage($(".pagenumbertheloai"), 5, res.page, res.totalpage);
+   }
+}
+
+var theloai_current = 0;
+
+$(".pagenumbertheloai").on('click', 'button', () => {
+    
+    theloai_current = $(".pagenumbertheloai").val();
+    builddstheloai($(".pagenumbertheloai").val(), recordtheloai);
+    
+});

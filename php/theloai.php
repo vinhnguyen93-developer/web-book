@@ -48,30 +48,31 @@ switch ($event) {
         break;
     case "getDSTheLoai":
 		
-		$mang=array();
+		$mang = array();
       
-        $record=$_POST['record'];
-        $page=$_POST['page'];
+        $record = $_POST['record'];
+        $page = $_POST['page'];
       
-		$vt=$page*$record;
-        $limit='limit '.$vt.' , '.$record;
-        $sql=mysqli_query($conn,"select * from theloai ".$limit); 
+		$vt = $page * $record;
+        $limit = 'limit '.$vt.' , '.$record;
+        $sql = mysqli_query($conn, "select * from theloai ".$limit); 
 
-		while($rows=mysqli_fetch_array($sql))
+		while($rows = mysqli_fetch_array($sql))
         {
-            $id=$rows['matl'];
-            $usertemp['matl']=$rows['matl'];
-            $usertemp['tentl']=$rows['tentl'];
+            $id = $rows['MaTL'];
+            $usertemp['MaTL'] = $rows['MaTL'];
+            $usertemp['TenTL'] = $rows['TenTL'];
             
-            $mang[$id]=$usertemp;
+            $mang[$id] = $usertemp;
         }
 
-        $rs=mysqli_query($conn,"select COUNT(*) as 'total' from theloai");
-        $row=mysqli_fetch_array($rs);
-        $jsonData['total'] =(int)$row['total'];
-		$jsonData['totalpage'] =ceil($row['total']/$record);
-	    $jsonData['page'] =(int)$page;
-        $jsonData['items'] =$mang;
+        $rs = mysqli_query($conn,"select COUNT(*) as 'total' from theloai");
+        $row = mysqli_fetch_array($rs);
+
+        $jsonData['total'] = (int)$row['total'];
+		$jsonData['totalpage'] = ceil($row['total']/$record);
+	    $jsonData['page'] = (int)$page;
+        $jsonData['items'] = $mang;
 		
         echo json_encode($jsonData);
 		mysqli_close($conn);

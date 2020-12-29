@@ -1,3 +1,4 @@
+var recordtheloai = 2;
 // định nghĩa hàm mở form
 function openForm(nameForm) {
   $(".form-theloai").addClass("is-hidden");
@@ -18,6 +19,7 @@ $(".menu-theloai").click(function () {
 
   //thêm nội dung vào thẻ có chứa class title-breadcrumb
   $(".title-breadcrumb").html(tagHtml);
+  builddstheloai(0, recordtheloai);
 });
 
 // mở form thông tin nhà xuất bản
@@ -162,4 +164,44 @@ function queryDataGet(url, dataSend, callback) {
     dataType: "json",
     success: callback
   });
+}
+
+//hàm hiển thị phân trang
+function buildSlidePage(obj, codan, pageActive, totalPage) {
+  var html = "";
+
+  pageActive = parseInt(pageActive);
+
+  for(i = 1 ; i <= codan; i++) {
+    if(pageActive - i < 0) break;
+
+    html = '<button type="button" class="btn btn-outline btn-default" value="' + (pageActive - i) + '">' + (pageActive - i + 1) + '</button>' + html;
+  }
+
+  if(pageActive > codan){
+    html = '<button type="button" class="btn btn-outline btn-default" value="' + (pageActive - i) + '">...</button>' + html;
+  }
+
+  html += '<button type="button" class="btn btn-outline btn-default" style="background-color: #5cb85c" value="' + pageActive + '">' + (pageActive + 1) + '</button>';
+  
+  for(i = 1 ; i <= codan; i++){
+    if(pageActive + i >= totalPage) break;
+
+    html = html+'<button  type="button" class="btn btn-outline btn-default" value="' + (pageActive + i) + '">' + (pageActive + i + 1) + '</button>';
+  }
+
+  if(totalPage - pageActive > codan + 1){
+    html = html + '<button type="button" value="' + (pageActive + i) + '" class="btn btn-outline btn-default">...</button>';
+  }
+
+  obj.html(html);
+}
+
+//hàm in số thứ tự page
+function printSTT(record, pageCurr) {
+  if((pageCurr + 1) == 1) {
+      return 1;
+  }else {
+      return record * (pageCurr + 1) - (record - 1);
+  }
 }
