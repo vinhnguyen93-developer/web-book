@@ -34,7 +34,10 @@ switch ($event) {
         echo json_encode($res);
         mysqli_close($conn);
         break;
-	case "update":
+    case "update":
+        $matl = $_POST['matl'];
+        $tentl = $_POST['tentl'];
+
         $sql="UPDATE  `theloai` SET tentl='".$tentl."' WHERE matl='".$matl."'";
        
         if (mysqli_query($conn, $sql)) {

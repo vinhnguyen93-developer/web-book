@@ -1,3 +1,6 @@
+var recordtheloai = 2;
+var resalltheloai;
+
 $(".btn-them-theloai").click(() => {
     //Lấy dữ liệu từ form
     var maTl = $(".txt-matl").val();
@@ -17,6 +20,10 @@ $(".btn-them-theloai").click(() => {
         queryDataPost("php/theloai.php", data, (res) => {
             if(res.insert == 1) {
                 alertSuccess("Thêm thành công.");
+                builddstheloai(theloai_current, recordtheloai);
+
+                $(".txt-matl").val("");
+                $(".txt-tentl").val("");
             } else {
                 alertError("Something wrong!");
             }
@@ -32,11 +39,6 @@ $(".btn-lamlai-theloai").click(() => {
 $(".btn-delete-theloai").click(() => {
     var maTl = $(".txt-matl").val();
 
-    var data = {
-        event: "delete",
-        matl: maTl
-    }
-
     bootbox.confirm(
         "Bạn có chắc muốn xoá mã thể loại " + maTl + " hàng này không?", (result) => {
           if (result == true) {
@@ -47,14 +49,18 @@ $(".btn-delete-theloai").click(() => {
 
             queryDataPost("php/theloai.php", data, (res) => {
                 if(res.delete) {
-                    alertSuccess("deleted...");
+                    alertSuccess("Deleted.");
+                    builddstheloai(theloai_current, recordtheloai);
+
+                    $(".txt-matl").val("");
+                    $(".txt-tentl").val("");
                 } else {
                     alertError("something wrong!");
                 }
             });
           }
         }
-      );
+    );
 })
 
 //hàm reset lại form thể loại
@@ -98,8 +104,7 @@ function buildHTMLTheLoaiData(res) {
         var list = data[item];
       
         html = html +
-            '<tr data-matl="' + list.MaTL + '" data-name="' + list.MaTL + '" data-vt="' + list.MaTL + '">' +
-			
+            '<tr data-matl="' + list.MaTL + '" data-name="' + list.TenTL + '" data-vt="' + item + '">' +			
             '<td>' + stt + '</td>' +
 			'<td>' + list.MaTL + '</td>' +
 			'<td>' + list.TenTL + '</td>' +
@@ -122,4 +127,42 @@ $(".page-number").on('click', 'button', function() {
     theloai_current = $(this).val();
     builddstheloai(theloai_current, recordtheloai);
     
+});
+
+$(".listdstheloai").on("click", ".click_sua_the_loai", function() {
+    var vt = $(this).parents("tr").attr("data-vt");
+
+    $(".txt-matl").val(resalltheloai[vt].MaTL);
+    $(".txt-tentl").val(resalltheloai[vt].TenTL);
+});
+
+//sự kiện sửa thể loại
+$(".btn-luu-theloai").click(() => {
+    var maTl = $(".txt-matl").val();
+    var tenTl = $(".txt-tentl").val();
+
+
+    bootbox.confirm(
+        "Bạn có chắc muốn sửa mã thể loại " + maTl + " hàng này không?", (result) => {
+          if (result == true) {
+            var data = {
+                event: "update",
+                matl: maTl,
+                tentl: tenTl
+            }
+
+            queryDataPost("php/theloai.php", data, (res) => {
+                if(res.update) {
+                    alertSuccess("Sửa thành công.");
+                    builddstheloai(theloai_current, recordtheloai);
+
+                    $(".txt-matl").val("");
+                    $(".txt-tentl").val("");
+                } else {
+                    alertError("something wrong!");
+                }
+            });
+          }
+        }
+      );
 });
