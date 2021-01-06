@@ -79,7 +79,25 @@ switch ($event) {
 		
         echo json_encode($jsonData);
 		mysqli_close($conn);
-		break;
+        break;
+    case "updateAvatar":
+        $avatar = $_POST['avatar'];
+        
+        $username = $_POST['username']; 
+
+        $sql = "update users set avatar='".$avatar."' where username='".$username."'";
+            
+        if (mysqli_query($conn, $sql)) {
+            $res[$event] = 1;
+        } else {
+            $res[$event] = 0;
+        }
+            
+        echo json_encode($res);
+
+        mysqli_close($conn);
+        
+        break;     
     default:
         # code...
         break;

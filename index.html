@@ -120,19 +120,19 @@
               <!-- user login dropdown start-->
               <li class="dropdown">
                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                  <img alt="" src="images/avatar1_small.jpg" />
-                  <span class="username">Vinh Nguyễn</span>
+                  <img class="avatar-image" />
+                  <span class="username"></span>
                   <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu extended logout">
                   <li>
                     <a href="#"><i class="fa fa-suitcase"></i>Profile</a>
                   </li>
-                  <li>
-                    <a href="#"><i class="fa fa-cog"></i> Settings</a>
+                  <li class="btn-change-avatar">
+                    <a href="#"><i class="fa fa-cog"></i> Đổi avatar</a>
                   </li>
-                  <li>
-                    <a href="login.html"><i class="fa fa-key"></i> Log Out</a>
+                  <li class="btn-logout">
+                    <a href="#"><i class="fa fa-key"></i> Log Out</a>
                   </li>
                 </ul>
               </li>
@@ -642,6 +642,40 @@
             </div>
           </div>
           <!-- modal end -->
+
+          <!-- modal change avatar start -->
+          <div class="showmodal_changeavartar modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                  <h4 class="modal-title">Thay đổi hình<i class="title_mamon_outline"></i></h4>
+                </div>
+
+                <div class="modal-body" align="center">
+                  <form role="form" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label">
+                        <span style="font-size: 16px; color: #99003d;">Chọn ảnh: </span>
+                      </label>
+                      <div class="col-sm-3 iconimage">
+                        <input id="imgSP" type="file" accept="image/*">
+                      </div>
+                      <div class="col-sm-2">
+                          <img class="is-hidden" id="imgSPPreview" width="150" height="150">
+                      </div>
+                    </div>
+                  </form>
+                </div>
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-round btn-danger btn_update_avartar">Cập nhật</button>
+                  <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- modal change avatar end -->
 
           <!-- page end-->
         </section>

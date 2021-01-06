@@ -205,3 +205,95 @@ function printSTT(record, pageCurr) {
       return record * (pageCurr + 1) - (record - 1);
   }
 }
+
+function initUploadImage(idInput, idPreview, callback) {
+	'use strict';
+	// Initialise resize library
+	var resize = new window.resize();
+  resize.init();
+  
+	// Upload photo
+	document.querySelector('#'+idInput).addEventListener('change', function (event) {
+		event.preventDefault();
+
+		// var input=$("#"+idInput);
+		$("#"+idInput).change(function() {
+			// $("#"+idpreview).show();
+			if (typeof(FileReader) != "undefined") {
+			
+				var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.ico|.jpg|.jpeg|.gif|.png)$/;
+			
+				$($(this)[0].files).each(function() {
+          var getFile = $(this);
+          
+					if (regex.test(getFile[0].name.toLowerCase())) {
+            var reader = new FileReader();
+            
+						reader.onload = function(e) {
+							$("#imgPreviewStatus").attr("src", e.target.result);
+            }
+            
+						reader.readAsDataURL(getfile[0]);
+						//document.getElementById("savepath").value=getfile[0].name;
+						//console.log(getfile[0]);
+					} else {
+						alert(getfile[0].name + " Không phải là file .");
+						return false;
+					}
+				});
+			} else {
+				alert("Browser does not supportFileReader.");
+			}
+    });
+    
+		var files = event.target.files;
+		var countFile = files.length;
+		for (var i in files) {
+      if (typeof files[i] !== 'object') {
+        return false;
+      }
+
+			(function() {
+
+				var initialSize = files[i].size;
+
+				resize.photo(files[i], 1200, 'file', function (resizedFile) {
+
+				var resizedSize = resizedFile.size;
+
+					upload(resizedFile, function(res) {
+						console.log(res);
+						var s = callback + "(" + res + ")";
+						eval(s);
+					});
+
+					// This is not used in the demo, but an example which returns a data URL so yan can show the user a thumbnail before uploading th image.
+					resize.photo(resizedFile, 600, 'dataURL', function (thumbnail) {
+						//console.log('Display the thumbnail to the user: ', thumbnail);
+					});
+				});
+			} ());
+		}
+
+	});
+};
+
+
+var upload = function (photo, callback) {
+  var formData = new FormData();
+  
+  formData.append('photo', photo);
+    
+  $.ajax({
+    url: 'php/up-load-file.php',
+    type : 'POST',
+    data : formData,
+    async: true,
+    xhrFields: {
+      withCredentials: true
+    },
+    processData: false,  // tell jQuery not to process the data
+    contentType: false,  // tell jQuery not to set contentType
+    success : callback
+  });
+};

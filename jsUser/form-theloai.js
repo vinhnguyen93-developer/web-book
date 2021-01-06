@@ -164,5 +164,86 @@ $(".btn-luu-theloai").click(() => {
             });
           }
         }
-      );
+    );
+});
+
+$(".btn-logout").click(function() {
+    logout();
+});
+
+//Hàm logout
+function logout() {
+    localStorage.removeItem("userNameBook");
+    localStorage.removeItem("avatarUser");
+    localStorage.removeItem("remmemberBS");
+  
+    location.href ="login.html";
+}
+  
+buildUserDropdown();
+
+function buildUserDropdown() {
+    var user = localStorage.getItem("userNameBook");
+    var avatar = localStorage.getItem("avatarUser");
+
+    if(user == undefined || user == null || user == "") {
+        location.href="login.html";
+    } else {
+        $(".username").html(user);
+        $(".avatar-image").attr("src","./images/" + avatar);
+    }	
+}
+
+//change avartart
+$(".btn-change-avatar").click(function () {
+
+    $("#imgSP").val("")
+    
+    $('.showmodal_changeavartar').modal('show');
+
+    initUploadImage("imgSP", "imgSPPreview", "onSuccessUploadImageavartar");
+});
+
+var urlImage="";
+
+function onSuccessUploadImageavartar(oj){
+     console.log(oj);
+
+    $("#imgSPPreview").removeClass("is-hidden");
+    $("#imgSPPreview").attr("src",oj.url);
+    
+     console.log(oj.attach);
+    urlImage=oj.attach;
+}
+
+
+//hàm đổi avatar
+$(".btn_update_avartar").click(function() {
+	
+    if(urlImage == ""){
+        alert_info("Chưa chọn hình");
+    }else{
+        var data = {
+            event: "updateAvatar",
+            username: username,
+            avatar: avatar
+        };
+        
+        queryDataPost("php/theloai.php", data, function (res) {
+            console.log(res);							
+            if(data["UpdateAvatar"] == 1){
+                alert_info("Update thành công !!");
+                //$(".avartarimage").attr("src",urllocal+"file/"+urlimage);
+
+                localStorage.removeItem("avatarBS");
+                localStorage.setItem("avatarBS ", urlImage);
+
+                buildUserDropdown();
+                
+                urlImage=""
+            } else { 
+                alert_info("Thất bại !!");
+            }
+        });
+    }
 });
